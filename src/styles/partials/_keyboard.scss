@@ -1,0 +1,55 @@
+// grid
+
+#keyboard {
+    height: 120px;
+    width: 100%;
+}
+
+
+// #keyboard {
+//     display: flex;
+//     flex-direction: column;
+//     .upper-row {
+//         display: flex;
+//         justify-content: space-around;
+//     }
+
+//     .lower-row {
+//         display: flex;
+//         justify-content: space-around;
+//     }
+
+//     span.key-name {
+//         font-size: 20px;
+//     }
+
+//     span.note-name {
+//         text-align: right;
+//         font-size: 12px;
+//     }
+
+//     .key {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: space-between;
+//         width: 100px;
+//         height: 100px;
+//         padding: 30px;
+//         &.white {
+            
+//             background-image: url(../../images/key_white.png);
+//             background-position: center;
+//             background-size: contain;
+            
+//         }
+//         &.black {
+//             color: white;
+//             background-image: url(../../images/key_black.png);
+//             background-position: center;
+//             background-size: contain;
+//         }
+//     }
+
+    
+// }
+

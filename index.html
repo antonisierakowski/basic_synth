@@ -12,16 +12,31 @@
       <section id="synthUI">
         <div id="controlPanel">
           <div id='control1'>
-            <div class='switch' data-value='0'></div>
-            <div class='switch' data-value='0'></div>
-            <div class='switch' data-value='0'></div>
-            <div class='switch' data-value='0'></div>
-            <div class='slider' data-value='0'></div>
-            <div class='slider' data-value='0'></div> 
+            <!-- <div class="switches">
+                <div class='switch' data-value='0'></div>
+                <div class='switch' data-value='0'></div>
+                <div class='switch' data-value='0'></div>
+                <div class='switch' data-value='0'></div>
+            </div> -->
+            <form class="switches">
+                <input class='switch depressed' checked='true' data-value='0' type='radio' name='preset' />
+                <input class='switch' data-value='0' type='radio' name='preset' />
+                <input class='switch' data-value='0' type='radio' name='preset' />
+                <input class='switch' data-value='0' type='radio' name='preset' />
+            </form>
+
+            <div class="slider-well"><div class='slider' data-value='0'></div></div>
+            
+            <div class="slider-well"><div class='slider' data-value='0'></div></div>
+
           </div>
           <div id='control2'>
-            <div class='slider' data-value='0'></div>
-            <div class="knob" data-value='0'></div><div class="knob" data-value='0'></div>
+            <div class="knobs">
+                <div class="knob" data-value='0'><span class='indicator'></span></div><div class="knob" data-value='0'><span class='indicator'></span></div>
+            </div>
+            
+            <div class="slider-well"><div class='slider' data-value='0'></div></div>
+            
             
           </div>
           <div id='control3'>

@@ -4,7 +4,25 @@
     display: flex;
     justify-content: space-between;
 
+    #control1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .switches {
+            display: flex;
+        }
+    }
 
+    #control2 {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .knobs {
+            display: flex;
+            justify-content: space-around;
+        }
+    }
 
     #control4 {
         width: 180px;
@@ -54,22 +72,63 @@
 
 
 .knob {
-    width: 50px;
-    height: 50px;
-    border-radius: 40%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
     background-color: #eee;
     position: relative;
 
     $original-shadow: inset 0 -3px 1px rgba(0,0,0,0.2), 
                     inset 0 3px 1px rgba(255,255,255,.9);
     @include longshadow($original-shadow);
+    .indicator {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 3px;
+        height: 25%;
+        transform: rotate(0deg);
+        transform-origin: 50% 200%;
+        background-color: rgb(0, 0, 0);
+    }
 }
 
 
 
-#slider-horizontal-3,
-#slider-horizontal-4 {
-  padding: 20px;
+
+  .slider-well {
+    width: 100%;
+    height: 1px;
+    border-radius: 4px;
+    background-color: black;
+    position: relative;
+  }
+
+  .slider {
+    position: absolute;
+    left: 0;
+    top: -15px;
+    height: 30px;
+    width: 15px;
+    background: linear-gradient(#ddd, #bbb);
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    border-top: 1px solid #eee;
+    border-bottom: 5px solid #777;
+    $original-shadow:
+      -1px 2px 2px rgba(0,0,0,.4),
+      inset -10px 4px 10px 2px rgba(0,0,0,0.05);
+
+    box-shadow: makeShadow($original-shadow, 7);
+  }
+
+
+
+
+
+
 
   .slider-well {
     width: 100%;
@@ -96,4 +155,85 @@
 
     box-shadow: makeShadow($original-shadow, 7);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// switch
+
+.switches {
+    input {
+        -webkit-appearance: none;
+        outline: none;
+    }
+
+    .switch {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        top: -5px;
+        max-width: 100px;
+        max-height: 50px;
+        margin-left: 2px;
+        transition: all .1s;
+            background: linear-gradient(to right, #eee, #ccc);
+            border-radius: 0;
+            border-bottom: 10px solid #aaa;
+            $original-shadow: inset -2px 0 1px 1px rgba(255,255,255,.7),
+            inset 0 0 8px 8px rgba(128,128,128,.1),
+            inset -10px 4px 10px 2px rgba(0,0,0,0.05);
+        
+            @include longshadow($original-shadow);
+        
+            &:first-child {
+            border-bottom-left-radius: 4px;
+            }
+    
+            &:last-child {
+            border-bottom-right-radius: 4px;
+            }
+    
+            @for $i from 1 through 4 {
+            &:nth-child(#{$i}) {
+                z-index: 5-$i;
+            }
+            }
+    
+            &.depressed {
+                z-index: 0;
+                background: linear-gradient(to right, #ddd, #ccc);
+                top: 1px;
+                border-bottom: 4px solid #999;
+                $original-shadow: inset -1px 0 1px 1px rgba(255,255,255,.4),
+                    inset 0 0 8px 8px rgba(128,128,128,.1),
+                    inset -10px 4px 10px 2px rgba(128,128,128,0.05),
+                    inset -10px 4px 10px 2px rgba(128,128,128,0.05);
+    
+                @include shortshadow($original-shadow);
+      
+            }
+      
+          &:first-child {
+            margin-left: 0;
+          }
+    
+    }
 }
+

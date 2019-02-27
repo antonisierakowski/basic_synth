@@ -1,13 +1,11 @@
 import $ from "jquery";
 import Tone from "tone";
 import $keys from './partials/keys'
-// import './../keypress'
-// SCSS
+import handleControlPanel from './partials/control_panel'
 import "./styles/main.scss";
 
 
 $( () => {
-      
       const $body = $('body');
       const $dbMeter = $('#dbMeter')
       let curOct = 2;
@@ -41,12 +39,12 @@ $( () => {
             addPressEvent($keys.fSharpKey, 84, `F#${oct}`)
             addPressEvent($keys.gSharpKey, 89, `G#${oct}`)
             addPressEvent($keys.aSharpKey, 85, `A#${oct}`)
-            $body.on('keyup', () => {
-                  if (event.keyCode === 90) {
+            $body.on('keyup', (eventOctChg) => {
+                  if (eventOctChg.keyCode === 90) {
                         curOct--;
                         handleKeyboard(curOct)
                   }
-                  if (event.keyCode === 88) {
+                  if (eventOctChg.keyCode === 88) {
                         curOct++;
                         handleKeyboard(curOct)
                   }
@@ -73,7 +71,7 @@ $( () => {
 
       $body.on('keypress', () => {
             const intervalId = setInterval( () => {
-                  //console.log(dbMeter.getLevel())
+                  console.log(dbMeter.getLevel())
                   if(dbMeter.getLevel() < -40) {
                         $dbMeter.css('height', '0')
                   } else {
@@ -86,6 +84,6 @@ $( () => {
       })
 
 
-  
+      handleControlPanel();
 })
 

@@ -31,6 +31,18 @@ body {
                 0 15px 20px rgba(0,0,0,0.2);
 }
 
+.knob {
+    cursor: ns-resize;
+  }
+  
+.slider {
+    cursor: ew-resize;
+  }
+  
+.switch,
+.button {
+    cursor: pointer;
+  }
 
 // mixiny
 
@@ -66,29 +78,3 @@ body {
 
 
 
-
-
-
-
-
-
-// knob
-
-
-
-.knob {
-    width: 25%;
-    padding-bottom: 25%;
-    border-radius: 50%;
-    background-color: #eee;
-    position: relative;
-
-    $original-shadow: inset 0 -3px 1px rgba(0,0,0,0.2), 
-                  inset 0 3px 1px rgba(255,255,255,.9);
-    @include longshadow($original-shadow);
-}
-
-
-
-
-// key

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
     <title>basic_synth</title>
   </head>
   <body>
@@ -11,19 +12,31 @@
       <section id="synthUI">
         <div id="controlPanel">
           <div id='control1'>
-            <span class='switch'></span><span class='switch'></span><span class='switch'></span><span class='switch'></span>
-            <input type='range'>
-            <input type='range'>
+            <div class='switch' data-value='0'></div>
+            <div class='switch' data-value='0'></div>
+            <div class='switch' data-value='0'></div>
+            <div class='switch' data-value='0'></div>
+            <div class='slider' data-value='0'></div>
+            <div class='slider' data-value='0'></div> 
           </div>
           <div id='control2'>
-            <span class="knob"></span><span class="knob"></span>
-            <input type='range'>
+            <div class='slider' data-value='0'></div>
+            <div class="knob" data-value='0'></div><div class="knob" data-value='0'></div>
+            
           </div>
           <div id='control3'>
-            <div id='dbMeter'></div>
+            <div id='dbBorder'>
+              <div id="dbMeter">
+
+              </div>
+            </div>
           </div>
           <div id='control4'>
-            <div id='speaker'><img src='./images/speaker.png'></div>
+            <div id='speaker'>
+              
+              <img src='images/speaker.png'>
+
+            </div>
           </div>
           
         </div>

@@ -7,15 +7,18 @@ import "./styles/main.scss";
 
 
 $( () => {
+      
       const $body = $('body');
+      const $dbMeter = $('#dbMeter')
       let curOct = 2;
       let synth = new Tone.PolySynth(10)
       console.log(synth)
       let chorus = new Tone.Chorus(1.5, 3.5, 0.7);
       let reverb = new Tone.Reverb(20);
+      let dbMeter = new Tone.Meter(0.99);
 
 
-      synth.chain(chorus, reverb, Tone.Master);
+      synth.chain(chorus, reverb, dbMeter, Tone.Master);
       reverb.generate();
       reverb.wet.value = (0.2);
 
@@ -23,7 +26,6 @@ $( () => {
       handleKeyboard(curOct)
 
       function handleKeyboard(oct) {
-            console.log(curOct)
             $body.off('keydown');
             $body.off('keyup');
             addPressEvent($keys.cKey, 65, `C${oct}`)
@@ -39,7 +41,6 @@ $( () => {
             addPressEvent($keys.fSharpKey, 84, `F#${oct}`)
             addPressEvent($keys.gSharpKey, 89, `G#${oct}`)
             addPressEvent($keys.aSharpKey, 85, `A#${oct}`)
-
             $body.on('keyup', () => {
                   if (event.keyCode === 90) {
                         curOct--;
@@ -58,6 +59,7 @@ $( () => {
                   if (eventDown.keyCode === keycode) {
                         synth.triggerAttackRelease(note, '8n');
                         $(element).addClass('depressed');
+                        
                         $body.on('keyup', (eventUp) => {
                               if (eventUp.keyCode === keycode) {
                                     $(element).removeClass('depressed')
@@ -65,7 +67,25 @@ $( () => {
                         })
                   }
             })
+
       }
+
+
+      $body.on('keypress', () => {
+            const intervalId = setInterval( () => {
+                  //console.log(dbMeter.getLevel())
+                  if(dbMeter.getLevel() < -40) {
+                        $dbMeter.css('height', '0')
+                  } else {
+                        $dbMeter.css('height', `${ 150 - ( Math.floor(dbMeter.getLevel()) * -4 ) }px`)
+                  }
+                  if (dbMeter.getLevel() < -50 && dbMeter.getLevel() !== -Infinity) {
+                        clearInterval(intervalId);
+                  }
+            }, 20)
+      })
+
+
   
 })
 

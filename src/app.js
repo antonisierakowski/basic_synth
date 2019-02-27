@@ -1,7 +1,7 @@
 import $ from "jquery";
 import Tone from "tone";
 import $keys from './partials/keys'
-import handleControlPanel from './partials/control_panel'
+// import handleControlPanel from './partials/control_panel'
 import "./styles/main.scss";
 
 
@@ -11,12 +11,13 @@ $( () => {
       let curOct = 2;
       let synth = new Tone.PolySynth(10)
       console.log(synth)
+      let filter = new Tone.Filter(16000, 'lowpass', -12)
       let chorus = new Tone.Chorus(1.5, 3.5, 0.7);
       let reverb = new Tone.Reverb(20);
       let dbMeter = new Tone.Meter(0.99);
 
 
-      synth.chain(chorus, reverb, dbMeter, Tone.Master);
+      synth.chain(filter, chorus, reverb, dbMeter, Tone.Master);
       reverb.generate();
       reverb.wet.value = (0.2);
 
@@ -83,6 +84,47 @@ $( () => {
             }, 20)
       })
 
+
+      
+
+      function handleControlPanel() {
+            const $switches = $('.switch');
+            $switches.on('change', event => {
+                $switches.each( (i,e) => {
+                    $(e).removeClass('depressed')
+                })
+                $(event.target).addClass('depressed')
+                
+                if ($switches.eq(0).is(":checked")) {
+                    // tutaj jakies ustawionko
+                } else if ($switches.eq(1).is(":checked")) {
+                    // tutaj jakies ustawionko
+                } else if ($switches.eq(2).is(":checked")) {
+                    // tutaj jakies ustawionko
+                } else if ($switches.eq(3).is(":checked")) {
+                    // tutaj jakies ustawionko
+                }
+            })
+
+            const $attackInput = $('#attack')
+            $attackInput.on('input', event => {
+                // coś = $attackInput.val();
+            })
+        
+            const $releaseInput = $('#release')
+            $releaseInput.on('input', event => {
+                // coś = $releaseInput.val();
+            })
+            
+            const $filterInput = $('#filter')
+            console.log($filterInput)
+            $filterInput.on('input', event => {
+                console.log($filterInput.val())
+                console.log(filter)
+                filter.frequency.input.value = $filterInput.val();
+            })
+
+      }
 
       handleControlPanel();
 })

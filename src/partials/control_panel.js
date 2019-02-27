@@ -1,8 +1,8 @@
 import $ from "jquery";
+import filter from './../app'
 
-function handleControlBoard() {
+function handleControlPanel() {
     const $switches = $('.switch');
-
     $switches.on('change', event => {
         $switches.each( (i,e) => {
             $(e).removeClass('depressed')
@@ -19,19 +19,25 @@ function handleControlBoard() {
             // tutaj jakies ustawionko
         }
     })
+
+    const $attackInput = $('#attack')
+    //console.log($attackInput)
+    $attackInput.on('change', event => {
+        // coś = $attackInput.val();
+        console.log($attackInput.val())
+    })
+
+    const $releaseInput = $('#release')
+    $releaseInput.on('change', event => {
+        // coś = $releaseInput.val();
+    })
     
-    // $switches.eq(0).on('click', event => {
-    //     $(event.target).toggleClass('depressed')
-    // }) 
-    // $switches.eq(1).on('click', event => {
-    //     $(event.target).toggleClass('depressed')
-    // }) 
-    // $switches.eq(2).on('click', event => {
-    //     $(event.target).toggleClass('depressed')
-    // }) 
-    // $switches.eq(3).on('click', event => {
-    //     $(event.target).toggleClass('depressed')
-    // }) 
+    const $filterInput = $('#filter')
+    $filterInput.on('change', event => {
+        filter.frequency.input.value = $filterInput.val();
+    })
+
+
 }
 
-export default handleControlBoard;
+export default handleControlPanel;

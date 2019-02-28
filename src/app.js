@@ -149,12 +149,18 @@ $( () => {
 
             const $attackInput = $('#attack')
             $attackInput.on('input', event => {
-                  // coś = $attackInput.val();
+                  synth.voices.forEach( e => {
+                        e.envelope.attack = $attackInput.val();
+                  })
             })
         
             const $releaseInput = $('#release')
             $releaseInput.on('input', event => {
-                  // coś = $releaseInput.val();
+                  synth.voices.forEach( e => {
+                        e.envelope.decay = $releaseInput.val();
+                        e.envelope.sustain = $releaseInput.val();
+                        e.envelope.release = $releaseInput.val();
+                  })
             })
             
             const $filterInput = $('#filter')
@@ -163,10 +169,6 @@ $( () => {
             })
 
 
-
-            function getAppropriateValue(num, min1, max1, min2, max2) {
-                  return (((num - min1) * (max2 - min2)) / (max1 - min1)) + min2
-            };
 
 
             const $reverbKnob = $('#reverb');
@@ -229,5 +231,16 @@ $( () => {
       }
 
       handleControlPanel();
+
+      function getAppropriateValue(num, min1, max1, min2, max2) {
+            return (((num - min1) * (max2 - min2)) / (max1 - min1)) + min2
+      };
+
+
+      const $showInfoBtn = $('#showInfo');
+      const $info = $('#info')
+      $showInfoBtn.on('click', () => {
+            $info.toggleClass('hidden');
+      })
 })
 

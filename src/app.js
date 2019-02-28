@@ -11,8 +11,15 @@ $( () => {
       let curOct = 4;
       let synth = new Tone.PolySynth(10)
       console.log(synth)
+      synth.voices.forEach( e => {
+            e.envelope.attack = 0.1;
+            e.envelope.decay = 1;
+            e.envelope.sustain = 1;
+            e.envelope.release = 0.5;
+            e.oscillator.type = 'triangle'
+      })
       let filter = new Tone.Filter(16000, 'lowpass', -12)
-      let chorus = new Tone.Chorus(1.5, 3.5, 0.7);;
+      let chorus = new Tone.Chorus(1.9, 3, 1);
       
       let reverb = new Tone.Reverb(30);
       let dbMeter = new Tone.Meter(0.99);
@@ -57,15 +64,16 @@ $( () => {
 
             $body.on('keydown', (eventDown) => {
                   if (eventDown.keyCode === keycode) {
-                        synth.triggerAttackRelease(note, '8n');
+                        synth.triggerAttackRelease(note, '4n');
                         $(element).addClass('depressed');
                         
-                        $body.on('keyup', (eventUp) => {
-                              if (eventUp.keyCode === keycode) {
-                                    $(element).removeClass('depressed')
-                              }
-                        })
+
                   }
+                  $body.on('keyup', (eventUp) => {
+                        if (eventUp.keyCode === keycode) {
+                              $(element).removeClass('depressed')
+                        }
+                  })
             })
 
       }
@@ -91,20 +99,52 @@ $( () => {
       function handleControlPanel() {
             const $switches = $('.switch');
             $switches.on('change', event => {
-                $switches.each( (i,e) => {
-                    $(e).removeClass('depressed')
-                })
-                $(event.target).addClass('depressed')
-                
-                if ($switches.eq(0).is(":checked")) {
-                    // tutaj jakies ustawionko
-                } else if ($switches.eq(1).is(":checked")) {
-                    // tutaj jakies ustawionko
-                } else if ($switches.eq(2).is(":checked")) {
-                    // tutaj jakies ustawionko
-                } else if ($switches.eq(3).is(":checked")) {
-                    // tutaj jakies ustawionko
-                }
+                  $switches.each( (i,e) => {
+                        $(e).removeClass('depressed')
+                  })
+                  $(event.target).addClass('depressed')
+                                                                        //  PRESETY
+                  if ($switches.eq(0).is(":checked")) {
+                                                                        // DEFAULT
+                        synth.voices.forEach( e => {
+                              e.envelope.attack = 0.1;
+                              e.envelope.decay = 1;
+                              e.envelope.sustain = 1;
+                              e.envelope.release = 0.5;
+                              e.oscillator.type = 'triangle'
+                        })
+
+                  } else if ($switches.eq(1).is(":checked")) {
+                                                                        // SAW
+                        synth.voices.forEach( e => {
+                              e.envelope.attack = 0.1;
+                              e.envelope.decay = 1;
+                              e.envelope.sustain = 1;
+                              e.envelope.release = 0.5;
+                              e.oscillator.type = 'sawtooth'
+                        })
+
+                  } else if ($switches.eq(2).is(":checked")) {
+                                                                        // FM
+                        synth.voices.forEach( e => {
+                              e.envelope.attack = 0.1;
+                              e.envelope.decay = 1;
+                              e.envelope.sustain = 1;
+                              e.envelope.release = 0.5;
+                              e.oscillator.type = 'fmsine'
+                        })
+                        
+                  } else if ($switches.eq(3).is(":checked")) {
+                                                                        // SQUARE                    
+                        synth.voices.forEach( e => {
+                              e.envelope.attack = 0.5;
+                              e.envelope.decay = 1;
+                              e.envelope.sustain = 1;
+                              e.envelope.release = 1.4;
+                              e.oscillator.type = 'square'
+                        })
+                        
+                  }
             })
 
             const $attackInput = $('#attack')

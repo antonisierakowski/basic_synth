@@ -8,12 +8,13 @@ import "./styles/main.scss";
 $( () => {
       const $body = $('body');
       const $dbMeter = $('#dbMeter')
-      let curOct = 2;
+      let curOct = 4;
       let synth = new Tone.PolySynth(10)
       console.log(synth)
       let filter = new Tone.Filter(16000, 'lowpass', -12)
-      let chorus = new Tone.Chorus(1.5, 3.5, 0.7);
-      let reverb = new Tone.Reverb(20);
+      let chorus = new Tone.Chorus(1.5, 3.5, 0.7);;
+      
+      let reverb = new Tone.Reverb(30);
       let dbMeter = new Tone.Meter(0.99);
 
 
@@ -72,7 +73,7 @@ $( () => {
 
       $body.on('keypress', () => {
             const intervalId = setInterval( () => {
-                  console.log(dbMeter.getLevel())
+                  // console.log(dbMeter.getLevel())
                   if(dbMeter.getLevel() < -40) {
                         $dbMeter.css('height', '0')
                   } else {
@@ -108,21 +109,82 @@ $( () => {
 
             const $attackInput = $('#attack')
             $attackInput.on('input', event => {
-                // coś = $attackInput.val();
+                  // coś = $attackInput.val();
             })
         
             const $releaseInput = $('#release')
             $releaseInput.on('input', event => {
-                // coś = $releaseInput.val();
+                  // coś = $releaseInput.val();
             })
             
             const $filterInput = $('#filter')
-            console.log($filterInput)
             $filterInput.on('input', event => {
-                console.log($filterInput.val())
-                console.log(filter)
-                filter.frequency.input.value = $filterInput.val();
+                  filter.frequency.input.value = Math.floor($filterInput.val());
             })
+
+
+
+            function getAppropriateValue(num, min1, max1, min2, max2) {
+                  return (((num - min1) * (max2 - min2)) / (max1 - min1)) + min2
+            };
+
+
+            const $reverbKnob = $('#reverb');
+            let reverbDeg = 200;
+            $reverbKnob.children().css('transform', 'rotate(' + reverbDeg + 'deg)');
+            $reverbKnob.on('mouseover', (eventMouseOver) => {
+                  $(window).on('mousewheel DOMMouseScroll', function(event){
+                        event.preventDefault();
+                        if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) { // SCROLL W DÓŁ
+                              if (reverbDeg > 3) {
+                                    reverbDeg -= 4;
+                                    $reverbKnob.children().css('transform', 'rotate(' + reverbDeg + 'deg)');
+                                    reverb.wet.input.value = getAppropriateValue(reverbDeg, 0, 352, 0, 1)
+                                    
+                              }
+                        }
+                        else { // SCROLL W GÓRĘ
+                              if (reverbDeg < 349) {
+                                    reverbDeg += 4;
+                                    $reverbKnob.children().css('transform', 'rotate(' + reverbDeg + 'deg)');
+                                    reverb.wet.input.value = getAppropriateValue(reverbDeg, 0, 352, 0, 0.5)
+                              }
+
+                        }
+                  });
+                  $reverbKnob.on('mouseleave', () => {
+                        $(window).off('mousewheel DOMMouseScroll')
+                  })
+            })
+
+            const $chorusKnob = $('#chorus');
+            chorus.wet.input.value = 0;
+            let chorusDeg = 0;
+
+            $chorusKnob.on('mouseover', (eventMouseOver) => {
+                  $(window).on('mousewheel DOMMouseScroll', function(event){
+                        event.preventDefault();
+                        if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) { // SCROLL W DÓŁ
+                              if (chorusDeg > 3) {
+                                    chorusDeg -= 4;
+                                    $chorusKnob.children().css('transform', 'rotate(' + chorusDeg + 'deg)');
+                                    chorus.wet.input.value = getAppropriateValue(chorusDeg, 0, 352, 0, 1)
+                              }
+                        }
+                        else { // SCROLL W GÓRĘ
+                              if (chorusDeg < 349) {
+                                    chorusDeg += 4;
+                                    $chorusKnob.children().css('transform', 'rotate(' + chorusDeg + 'deg)');
+                                    chorus.wet.input.value = getAppropriateValue(chorusDeg, 0, 352, 0, 0.5)
+                              }
+
+                        }
+                  });
+                  $chorusKnob.on('mouseleave', () => {
+                        $(window).off('mousewheel DOMMouseScroll')
+                  })
+            })
+
 
       }
 

@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <title>basic_synth</title>
-  <link href="app.1e6bd6ee1a8c83b84eaf.css" rel="stylesheet"></head>
+  <link href="app.ef2d677931b0876e433f.css" rel="stylesheet"></head>
   <body>
     <div id="app">
 
@@ -26,9 +26,9 @@
                 <input class='switch' data-value='0' type='radio' name='preset' />
             </form>
 
-            <input type='range' id='attack' class='slider' min='0.01' max='1' step='0.01' value='0.23'> 
+            <input type='range' id='duration' class='slider' min='0.01' max='0.5' step='0.01' value='0.14'> 
             
-            <input type='range' id='release' class='slider' min='0.01' max='1' step='0.01' value='0.76'> 
+            <input type='range' id='autoFilter' class='slider' min='1' max='100' step='1' value='1'> 
 
           </div>
           <div id='control2'>
@@ -37,7 +37,7 @@
                 <div class="knob" id='reverb' data-val='0'><span class='indicator'></span></div>
             </div>
             
-            <input type='range' id='filter' class='slider' min='100' max='10000' value='10000'> 
+            <input type='range' id='filter' class='slider' min='10' max='99' value='99'> 
             
             
           </div>
@@ -153,22 +153,29 @@
     <div id="info" class='hidden'>
       <section class="inner-container">
           <div class='text-container'>
-              <h1>ELKO TU BĘDZIE INFO</h1>
+              <h1>basic_synth</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima dignissimos reiciendis excepturi voluptatibus deleniti amet accusamus sapiente aut harum nostrum quo, minus veritatis impedit ex odio iusto in, fugit fugiat animi unde cupiditate hic cum eveniet ipsum! Quaerat, ducimus vitae!
+                this basic synthesizer was made with jquery and tone.js library - it was assembled as a final project for coderslab bootcamp that i've attended. you can use the synth either by clicking on the keys in the lower part of the UI, or by pressing the keys on your keyboard, corresponding to the labels in the UI. Z and X keys switch the current octaves. the synth controls are tweaked with your mouse.
+                <p>the upper-left series of switches change the presets of the oscillators - including basic waveshape and ADSR envelope. the sliders underneath them adjust the duration of the notes triggered with your keyboard, and autofilter frequencies, respectively.</p>
+                <p>you can use the two big knobs in the middle of the UI by hovering over them with your mouse and using your scroll wheel. these will change your chorus and reverb settings, accordingly. and finally, the one last slider underneath them is basically your low-pass filter frequency control. </p>
+                <p>the speaker on the right is just a picture, it doesn't make any sound, dummy.</p>
+              </p>
+              <h1>about me</h1>
+              <p>
+                my name is antoni and i love doing lots and lots of different stuff - including making music and programming, hence the idea of making interactive web synth in JS. if you like it, check out my other stuff. if you don't - at least check out my music!
               </p>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas qui earum dicta maiores doloremque ipsa repellendus beatae porro dignissimos deserunt, ipsum tempora nulla! Natus reprehenderit vel rem exercitationem? Assumenda autem at iusto ratione, repudiandae saepe aut? Repudiandae consequatur enim totam. Accusamus tempore nobis ipsum fugit velit, eum molestiae iure aspernatur? Itaque debitis porro aut quo similique error labore eveniet magni quidem maxime facere voluptas rem, dolore aliquam cupiditate quia hic aperiam optio voluptatem quas vel consectetur corrupti modi. Perferendis, quis quibusdam. Pariatur hic quibusdam fugiat commodi natus architecto. Recusandae suscipit esse earum eos quasi ad voluptatibus, a nisi? Natus, atque!
+
               </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur aut, hic doloremque ex autem molestias, corporis, distinctio doloribus itaque quis numquam! Reprehenderit molestiae maiores commodi voluptas suscipit iusto, aspernatur quo eum earum corporis. Dicta voluptatibus, recusandae quas deleniti blanditiis incidunt unde explicabo iusto et itaque natus nesciunt. Blanditiis, facere nulla.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore molestiae eum facere ullam eveniet ea obcaecati earum cupiditate repellendus dignissimos.
-              </p>
+              <div class="icons">
+                <a href='https://github.com/antonisierakowski'><img class='icon' src='images/github.png' alt='github logo'></a>
+                <a><img class='icon' src='images/linkedin.png' alt='linkedin logo'></a>
+                <a class='icon' href='https://soundcloud.com/sieraque'><img src='images/soundcloud.png' alt='soundcloud logo'></a>
+              </div>
+
           </div>
       </section>
 
     </div>
-  <script type="text/javascript" src="main.1e6bd6ee1a8c83b84eaf.js"></script></body>
+  <script type="text/javascript" src="main.ef2d677931b0876e433f.js"></script></body>
 </html>

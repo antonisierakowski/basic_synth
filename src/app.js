@@ -1,6 +1,6 @@
 import $ from "jquery";
 import Tone from "tone";
-import $keys from './partials/keys'
+import allKeys from './partials/keys'
 // import handleControlPanel from './partials/control_panel'
 import "./styles/main.scss";
 
@@ -9,25 +9,29 @@ $( () => {
       const $body = $('body');
       const $dbMeter = $('#dbMeter')
       let curOct = 4;
+      let curDur = 0.14;
       let synth = new Tone.PolySynth(10)
-      console.log(synth)
       synth.voices.forEach( e => {
-            e.envelope.attack = 0.1;
+            e.envelope.attack = 0.01;
             e.envelope.decay = 1;
             e.envelope.sustain = 1;
             e.envelope.release = 0.5;
             e.oscillator.type = 'triangle'
+
       })
-      let filter = new Tone.Filter(16000, 'lowpass', -12)
-      let chorus = new Tone.Chorus(1.9, 3, 1);
+      let filter = new Tone.Filter(10000, 'lowpass', -12)
+      let chorus = new Tone.Chorus(1.4, 3, 1);
+      let reverb = new Tone.Reverb(15);
+      reverb.wet.value = (0);
+
+      let autoFilter = new Tone.AutoFilter(0,16000).start();
+
+      let dbMeter = new Tone.Meter(0.9);
       
-      let reverb = new Tone.Reverb(30);
-      let dbMeter = new Tone.Meter(0.99);
-
-
-      synth.chain(filter, chorus, reverb, dbMeter, Tone.Master);
+      synth.output.output.gain.input.value = 0.5
+      synth.chain(autoFilter, filter, chorus, reverb, dbMeter, Tone.Master);
       reverb.generate();
-      reverb.wet.value = (0.2);
+      
 
 
       handleKeyboard(curOct)
@@ -35,66 +39,93 @@ $( () => {
       function handleKeyboard(oct) {
             $body.off('keydown');
             $body.off('keyup');
-            addPressEvent($keys.cKey, 65, `C${oct}`)
-            addPressEvent($keys.dKey, 83, `D${oct}`)
-            addPressEvent($keys.eKey, 68, `E${oct}`)
-            addPressEvent($keys.fKey, 70, `F${oct}`)
-            addPressEvent($keys.gKey, 71, `G${oct}`)
-            addPressEvent($keys.aKey, 72, `A${oct}`)
-            addPressEvent($keys.bKey, 74, `B${oct}`)
-            addPressEvent($keys.c2Key, 75, `C${oct+1}`)
-            addPressEvent($keys.cSharpKey, 87, `C#${oct}`)
-            addPressEvent($keys.dSharpKey, 69, `D#${oct}`)
-            addPressEvent($keys.fSharpKey, 84, `F#${oct}`)
-            addPressEvent($keys.gSharpKey, 89, `G#${oct}`)
-            addPressEvent($keys.aSharpKey, 85, `A#${oct}`)
+            Object.values(allKeys).forEach(element => {
+
+                  element.off('mousedown');  
+            });     
+                  
+            addPressEvent(allKeys.cKey, 65, `C${oct}`, curDur)
+            addPressEvent(allKeys.dKey, 83, `D${oct}`, curDur)
+            addPressEvent(allKeys.eKey, 68, `E${oct}`, curDur)
+            addPressEvent(allKeys.fKey, 70, `F${oct}`, curDur)
+            addPressEvent(allKeys.gKey, 71, `G${oct}`, curDur)
+            addPressEvent(allKeys.aKey, 72, `A${oct}`, curDur)
+            addPressEvent(allKeys.bKey, 74, `B${oct}`, curDur)
+            addPressEvent(allKeys.c2Key, 75, `C${oct+1}`, curDur)
+            addPressEvent(allKeys.cSharpKey, 87, `C#${oct}`, curDur)
+            addPressEvent(allKeys.dSharpKey, 69, `D#${oct}`, curDur)
+            addPressEvent(allKeys.fSharpKey, 84, `F#${oct}`, curDur)
+            addPressEvent(allKeys.gSharpKey, 89, `G#${oct}`, curDur)
+            addPressEvent(allKeys.aSharpKey, 85, `A#${oct}`, curDur)
             $body.on('keyup', (eventOctChg) => {
                   if (eventOctChg.keyCode === 90) {
-                        curOct--;
-                        handleKeyboard(curOct)
+                        if ( curOct > 1 ) {
+                              $body.off('keydown');
+                              $body.off('keyup');
+                              curOct--;
+                              handleKeyboard(curOct)
+                        }
+
                   }
                   if (eventOctChg.keyCode === 88) {
-                        curOct++;
-                        handleKeyboard(curOct)
+                        if ( curOct < 6 ) {
+                              $body.off('keydown');
+                              $body.off('keyup');
+                              curOct++;
+                              handleKeyboard(curOct)
+                        }
                   }
             })
+      
       }
 
-      function addPressEvent(element, keycode, note) {
+      function addPressEvent(element, keycode, note, dur) {
 
             $body.on('keydown', (eventDown) => {
                   if (eventDown.keyCode === keycode) {
-                        synth.triggerAttackRelease(note, '4n');
+
+                        synth.triggerAttackRelease(note, dur);
                         $(element).addClass('depressed');
                         
-
+                        $body.on('keyup', (eventUp) => {
+                              if (eventUp.keyCode === keycode) {
+                                    $(element).removeClass('depressed')
+                              }
+                        })
                   }
-                  $body.on('keyup', (eventUp) => {
-                        if (eventUp.keyCode === keycode) {
-                              $(element).removeClass('depressed')
-                        }
-                  })
+
+                  
             })
 
+            element.on('mousedown', e => {
+                  synth.triggerAttack(note);
+                  element.addClass('depressed');
+                  $body.one('mouseup', e => {
+                        synth.triggerRelease(note);
+                        element.removeClass('depressed');
+                  })
+            })
+            
       }
 
+      dbMeterOn();
 
-      $body.on('keypress', () => {
+      function dbMeterOn() {
+            
             const intervalId = setInterval( () => {
-                  // console.log(dbMeter.getLevel())
-                  if(dbMeter.getLevel() < -40) {
+                  if (dbMeter.getLevel() > -35) {
+                        $dbMeter.css('height', `${Math.floor(getAppropriateValue(dbMeter.getLevel(), -35, 0, 0, 174))}px`)
+                  } else if (dbMeter.getLevel() <= -30) {
                         $dbMeter.css('height', '0')
-                  } else {
-                        $dbMeter.css('height', `${ 150 - ( Math.floor(dbMeter.getLevel()) * -4 ) }px`)
+                        // clearInterval(intervalId)
                   }
-                  if (dbMeter.getLevel() < -50 && dbMeter.getLevel() !== -Infinity) {
-                        clearInterval(intervalId);
-                  }
-            }, 20)
-      })
+            }, 50)
+      }  
+
+            
 
 
-      
+
 
       function handleControlPanel() {
             const $switches = $('.switch');
@@ -107,7 +138,7 @@ $( () => {
                   if ($switches.eq(0).is(":checked")) {
                                                                         // DEFAULT
                         synth.voices.forEach( e => {
-                              e.envelope.attack = 0.1;
+                              e.envelope.attack = 0.01;
                               e.envelope.decay = 1;
                               e.envelope.sustain = 1;
                               e.envelope.release = 0.5;
@@ -147,41 +178,51 @@ $( () => {
                   }
             })
 
-            const $attackInput = $('#attack')
-            $attackInput.on('input', event => {
-                  synth.voices.forEach( e => {
-                        e.envelope.attack = $attackInput.val();
-                  })
+            const $durInput = $('#duration')
+            $durInput.on('input', event => {
+                  curDur = $durInput.val();
+                  handleKeyboard(curOct);
             })
-        
-            const $releaseInput = $('#release')
-            $releaseInput.on('input', event => {
-                  synth.voices.forEach( e => {
-                        e.envelope.decay = $releaseInput.val();
-                        e.envelope.sustain = $releaseInput.val();
-                        e.envelope.release = $releaseInput.val();
-                  })
+            const $autoFilterInput = $('#autoFilter')
+            $autoFilterInput.on('input', event => {
+                  if ($autoFilterInput.val() < 10) {
+                        autoFilter.baseFrequency = getAppropriateValue($autoFilterInput.val(), 1, 9, 10000, 4000);
+                  } else if ($autoFilterInput.val() >= 10 && $autoFilterInput.val() < 50) {
+                        autoFilter.baseFrequency = getAppropriateValue($autoFilterInput.val(), 10, 51, 4000, 1500);
+                  } else if ($autoFilterInput.val() >= 50) {
+                        autoFilter.baseFrequency = getAppropriateValue($autoFilterInput.val(), 50, 100, 1500, 400 );
+                  }
+
+                  
+                  //autoFilter.octaves = getAppropriateValue($autoFilterInput.val(), 1, 100, 0, -1)
+                  
+                  //console.log(autoFilter)
+                  console.log(autoFilter.baseFrequency)
+                  autoFilter.frequency.input.value = getAppropriateValue($autoFilterInput.val(), 1, 100, 0, 17)
             })
             
             const $filterInput = $('#filter')
             $filterInput.on('input', event => {
-                  filter.frequency.input.value = Math.floor($filterInput.val());
+
+                  filter.frequency.input.value = $filterInput.val()*$filterInput.val();
+
             })
 
 
 
 
             const $reverbKnob = $('#reverb');
-            let reverbDeg = 200;
+            let reverbDeg = 0;
             $reverbKnob.children().css('transform', 'rotate(' + reverbDeg + 'deg)');
             $reverbKnob.on('mouseover', (eventMouseOver) => {
                   $(window).on('mousewheel DOMMouseScroll', function(event){
                         event.preventDefault();
+                        
                         if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) { // SCROLL W DÓŁ
                               if (reverbDeg > 3) {
                                     reverbDeg -= 4;
                                     $reverbKnob.children().css('transform', 'rotate(' + reverbDeg + 'deg)');
-                                    reverb.wet.input.value = getAppropriateValue(reverbDeg, 0, 352, 0, 1)
+                                    reverb.wet.input.value = getAppropriateValue(reverbDeg, 0, 352, 0, 0.4)
                                     
                               }
                         }
@@ -189,7 +230,7 @@ $( () => {
                               if (reverbDeg < 349) {
                                     reverbDeg += 4;
                                     $reverbKnob.children().css('transform', 'rotate(' + reverbDeg + 'deg)');
-                                    reverb.wet.input.value = getAppropriateValue(reverbDeg, 0, 352, 0, 0.5)
+                                    reverb.wet.input.value = getAppropriateValue(reverbDeg, 0, 352, 0, 0.4)
                               }
 
                         }

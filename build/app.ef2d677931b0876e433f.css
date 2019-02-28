@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, main, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
   margin: 0;
   padding: 0;
@@ -182,7 +183,8 @@ template {
   box-sizing: border-box; }
 
 body {
-  background-color: #444; }
+  background-color: #444;
+  font-family: 'Quicksand', sans-serif; }
 
 #app {
   width: 100vw;
@@ -209,7 +211,8 @@ body {
   cursor: ew-resize; }
 
 .switch,
-.button {
+.button,
+.key {
   cursor: pointer; }
 
 .row {
@@ -505,6 +508,22 @@ body {
     justify-content: center;
     align-items: center; }
     #info .inner-container .text-container {
+      color: #c9c9c9;
+      font-size: 14px;
+      line-height: 20px;
       width: 500px;
-      height: 500px; }
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; }
+      #info .inner-container .text-container h1 {
+        font-size: 18px; }
+      #info .inner-container .text-container .icons {
+        display: flex;
+        justify-content: flex-end; }
+        #info .inner-container .text-container .icons .icon {
+          transition: 0.2s;
+          margin: 4px; }
+          #info .inner-container .text-container .icons .icon:hover {
+            transform: scale(1.2); }
 

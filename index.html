@@ -26,9 +26,9 @@
                 <input class='switch' data-value='0' type='radio' name='preset' />
             </form>
 
-            <input type='range' id='attack' class='slider' min='0.01' max='1' step='0.01' value='0.23'> 
+            <input type='range' id='duration' class='slider' min='0.01' max='0.5' step='0.01' value='0.14'> 
             
-            <input type='range' id='release' class='slider' min='0.01' max='1' step='0.01' value='0.76'> 
+            <input type='range' id='autoFilter' class='slider' min='1' max='100' step='1' value='1'> 
 
           </div>
           <div id='control2'>
@@ -37,7 +37,7 @@
                 <div class="knob" id='reverb' data-val='0'><span class='indicator'></span></div>
             </div>
             
-            <input type='range' id='filter' class='slider' min='100' max='10000' value='10000'> 
+            <input type='range' id='filter' class='slider' min='10' max='99' value='99'> 
             
             
           </div>
@@ -155,21 +155,22 @@
           <div class='text-container'>
               <h1>basic_synth</h1>
               <p>
-                this basic synthesizer is made with jquery and tone.js library - it was made as a final project for coderslab bootcamp that i've attended. you can use it by pressing keys on your keyboard, as labeled on the UI, that correspond to actual musical notes, and tweak the synth controls using your mouse. 
-                <p>the upper-left series of switches change the presets of the oscillator - including basic waveshape and ADSR envelope shape. the sliders underneath it adjust the attack and decay/release phases of the envelope.</p>
-                <p>you can use the two big knobs in the middle of the UI by hovering over them with your mouse and using your scroll wheel. they will change your chorus and reverb settings, accordingly. and finally, the one last slider underneath them is basically your low-pass filter control. </p>
+                this basic synthesizer was made with jquery and tone.js library - it was assembled as a final project for coderslab bootcamp that i've attended. you can use the synth either by clicking on the keys in the lower part of the UI, or by pressing the keys on your keyboard, corresponding to the labels in the UI. Z and X keys switch the current octaves. the synth controls are tweaked with your mouse.
+                <p>the upper-left series of switches change the presets of the oscillators - including basic waveshape and ADSR envelope. the sliders underneath them adjust the duration of the notes triggered with your keyboard, and autofilter frequencies, respectively.</p>
+                <p>you can use the two big knobs in the middle of the UI by hovering over them with your mouse and using your scroll wheel. these will change your chorus and reverb settings, accordingly. and finally, the one last slider underneath them is basically your low-pass filter frequency control. </p>
+                <p>the speaker on the right is just a picture, it doesn't make any sound, dummy.</p>
               </p>
               <h1>about me</h1>
               <p>
-                my name is antoni and i like doing a lot of stuff - including making music and programming, hence the idea of making interactive web synth in JS. if you like it, check out my other stuff. if you don't - at least check out my music!
+                my name is antoni and i love doing lots and lots of different stuff - including making music and programming, hence the idea of making interactive web synth in JS. if you like it, check out my other stuff. if you don't - at least check out my music!
               </p>
               <p>
 
               </p>
               <div class="icons">
-                <a href='https://github.com/antonisierakowski'><img src='images/github.png' alt='github logo'></a>
-                <a><img src='images/linkedin.png' alt='linkedin logo'></a>
-                <a href='https://soundcloud.com/sieraque'><img src='images/soundcloud.png' alt='soundcloud logo'></a>
+                <a href='https://github.com/antonisierakowski'><img class='icon' src='images/github.png' alt='github logo'></a>
+                <a><img class='icon' src='images/linkedin.png' alt='linkedin logo'></a>
+                <a class='icon' href='https://soundcloud.com/sieraque'><img src='images/soundcloud.png' alt='soundcloud logo'></a>
               </div>
 
           </div>

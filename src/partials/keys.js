@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 // PRZYPISANIE KLAWISZY CSS DO ZMIENNYCH
-const $keys = {
+const allKeys = {
     cKey: $('#c_key'),
     dKey: $('#d_key'),
     eKey: $('#e_key'),
@@ -17,4 +17,4 @@ const $keys = {
     aSharpKey: $('#asharp_key'),
 }
 
-export default $keys
+export default allKeys

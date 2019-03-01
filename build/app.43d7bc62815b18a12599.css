@@ -511,8 +511,8 @@ body {
       color: #c9c9c9;
       font-size: 14px;
       line-height: 20px;
-      width: 500px;
-      height: 500px;
+      width: 600px;
+      height: 450px;
       display: flex;
       flex-direction: column;
       justify-content: space-between; }
@@ -522,6 +522,7 @@ body {
         display: flex;
         justify-content: flex-end; }
         #info .inner-container .text-container .icons .icon {
+          width: 32px;
           transition: 0.2s;
           margin: 4px; }
           #info .inner-container .text-container .icons .icon:hover {

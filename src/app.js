@@ -194,16 +194,12 @@ $( () => {
                   }
 
                   
-                  //autoFilter.octaves = getAppropriateValue($autoFilterInput.val(), 1, 100, 0, -1)
-                  
-                  //console.log(autoFilter)
-                  console.log(autoFilter.baseFrequency)
+                  //autoFilter.octaves = getAppropriateValue($autoFilterInput.val(), 1, 100, 0, 0.3)
                   autoFilter.frequency.input.value = getAppropriateValue($autoFilterInput.val(), 1, 100, 0, 17)
             })
             
             const $filterInput = $('#filter')
             $filterInput.on('input', event => {
-
                   filter.frequency.input.value = $filterInput.val()*$filterInput.val();
 
             })

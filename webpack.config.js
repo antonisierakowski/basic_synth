@@ -79,7 +79,7 @@ module.exports = function(env) {
     use: {
       loader: "file-loader",
       options: {
-        name: isProd ? "[name].[hash].[ext]" : "[name].[ext]",
+        name: isProd ? "[name].[ext]" : "[name].[ext]",
         publicPath: "images",
         outputPath: "images"
       }

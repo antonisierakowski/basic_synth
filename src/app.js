@@ -3,6 +3,10 @@ import Tone from "tone";
 import allKeys from './partials/keys'
 // import handleControlPanel from './partials/control_panel'
 import "./styles/main.scss";
+import "./../images/github.png"
+import "./../images/linkedin.png"
+import "./../images/soundcloud.png"
+import "./../images/speaker.png"
 
 
 $( () => {

@@ -21,12 +21,12 @@ those correspond to a whole octave. You can still switch your octaves with Z and
 ### Controlling parameters
 * The four switches in the upper-left corner of the synth will change oscillator's waveshape and apply some subtle amp's ADSR envelope presets.
 * The first slider beneath the switches will change the duration of the note triggered with your device's keyboard.
-* The other slider beneath the switches will apply autofilter to the output sound.
+* The other slider beneath the switches will apply autofilter to the output sound.<br />
 To use the knobs mouse over them, and scroll your mouse/touchpad to adjust the value.
 * The left knob will apply chorus/detuning to your oscillator output.
 * The right knob adjusts reverb's wet setting (from completely dry to about 50% wet).
 * The slider beneath the knobs controls low-pass filter's cutoff frequency.
 The thin bar on the right acts as a dB meter. Looks cool, eh?
 
-### disclaimer
+### Disclaimer
 The SASS mixins that made it possible for me to have these juicy gfx were taken from http://robertvinluan.com/Ramsophone/. Talented people make magic with their CSS.

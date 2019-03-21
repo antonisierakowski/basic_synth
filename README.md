@@ -12,16 +12,16 @@ Due to the app's nature, it's not designed responsively and desktop usage is adv
 After opening the app, you're greeted with the main UI which consists of the upper section of sound shaping controls, and lower section of keys. You can immediately start playing sounds and tweaking the controls. In the bottom left corner there's a question mark icon, which will toggle the view containing some info about the app and the author.
 
 ### Playing sounds
-You can play the sound in two ways:
-* by pressing the keys on your keyboard:
-the A, S, D, F, G, H, J, K keys correspond to whole tones of the octave (starting with C), and W, E, T, Y, U keys will play the corresponding halftones. Z and X keys let you switch your current octave to lower or higher, respectively. Unfortunately, due to JavaScript's handling of key events, each note will have fixed length, that can only be changed by one of the controls UI controls (more on that in the next section).
-* by clicking the key icons on the UI:
-those correspond to a whole octave. You can still switch your octaves with Z and X keys, and the note will play continously until you release the mouse button.
+You can play the sound in the following ways:
+* By pressing the keys on your keyboard:<br />
+The A, S, D, F, G, H, J, K keys correspond to whole tones of the octave (starting with C), and W, E, T, Y, U keys will play the corresponding halftones. Z and X keys let you switch your current octave to lower or higher, respectively. Unfortunately, due to JavaScript's handling of key events, each note will have fixed length, that can only be changed by one of the controls UI controls (more on that in the next section).
+* by clicking the key icons on the UI:<br />
+Those correspond to a whole octave. You can still switch your octaves with Z and X keys, and the note will play continously until you release the mouse button.
 
 ### Controlling parameters
 * The four switches in the upper-left corner of the synth will change oscillator's waveshape and apply some subtle amp's ADSR envelope presets.
 * The first slider beneath the switches will change the duration of the note triggered with your device's keyboard.
-* The other slider beneath the switches will apply autofilter to the output sound.<br />
+* The other slider beneath the switches will apply autofilter to the output sound.<br /><br />
 To use the knobs mouse over them, and scroll your mouse/touchpad to adjust the value.
 * The left knob will apply chorus/detuning to your oscillator output.
 * The right knob adjusts reverb's wet setting (from completely dry to about 50% wet).
